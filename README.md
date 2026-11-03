@@ -1,58 +1,67 @@
 # NEBULA DEFENDER
 
-A self-contained 2D space shooter made with Python 3 and Pygame. All artwork is drawn at runtime; no external art/audio files are needed.
+A browser-playable 2D space shooter, with the original Python/Pygame version retained in `pygame/`.
 
-## Run in GitHub Codespaces
+## Play in your browser
 
-```bash
-python -m pip install -r requirements.txt
-python main.py
-```
+The website entry point is `index.html`. It uses HTML Canvas and JavaScript, with no build step or external assets required.
 
-Pygame needs a graphical display. A standard browser terminal does not automatically display Pygame windows; use a GUI-enabled Codespaces environment/desktop forwarding or run locally.
+### Deploy on Vercel
 
-## Controls
+Import this repository into Vercel and use these settings:
+
+- **Framework Preset:** Other
+- **Root Directory:** `./`
+- **Build Command:** leave empty
+- **Output Directory:** leave empty (or `.` if the dashboard requires a value)
+
+Vercel should serve the root `index.html` as a static site. The Python/Pygame source is inside `pygame/` and is not a Vercel serverless function.
+
+## Browser controls
 
 - Move: `A` / `D` or left/right arrows
 - Shoot: `SPACE`
-- Pause/resume: `P` (or `ESC`)
+- Pause/resume: `P`
 - Start/restart: `ENTER`
-- Tablet/mobile: on-screen left, right and fire buttons; mouse input also works.
+- Touch devices: on-screen left, right and fire controls
 
-## Features
+## Browser game features
 
 - Three enemy types with distinct speed, health and score values
-- Increasing spawn rate and difficulty as score rises
+- Increasing difficulty and enemy spawn rate
 - Three lives and temporary invulnerability after a hit
 - Rapid-fire, shield and extra-health power-ups
 - Boss encounter at 120 points
 - Starfield, glowing projectiles, particle explosions and screen shake
 - Menu, pause, game-over, restart and locally saved high score
-- Resizable window and delta-time movement
+- Responsive canvas and touch controls
 
-## Project structure
+## Original Python/Pygame edition
+
+The desktop version is kept in:
+
+```
+pygame/
+├── main.py
+└── requirements.txt
+```
+
+Run it locally with Python 3:
+
+```bash
+python -m pip install -r pygame/requirements.txt
+python pygame/main.py
+```
+
+Pygame requires a graphical display; a standard browser terminal does not automatically display its game window.
+
+## Repository structure
 
 ```
 2D-game/
-├── main.py
-├── requirements.txt
-└── README.md
+├── index.html
+├── README.md
+└── pygame/
+    ├── main.py
+    └── requirements.txt
 ```
-
-## Customize
-
-Edit the configuration constants near the top of `main.py`:
-
-| Constant | Effect |
-|---|---|
-| `PLAYER_SPEED` | Player movement speed |
-| `BULLET_SPEED` | Player projectile speed |
-| `PLAYER_LIVES` | Starting and maximum health |
-| `ENEMY_BASE_SPEED` | Base enemy movement speed |
-| `ENEMY_SPAWN_BASE` | Initial spawn interval (lower = harder) |
-| `BOSS_SCORE` | Score threshold for boss |
-| `BOSS_HEALTH` | Boss starting health |
-
-Enemy stats are in `Enemy.SPECS`. Power-up durations are in `Player.update()` and `PowerUp.apply()`.
-
-The high score is saved to `~/.nebula_defender_highscore` on the machine running the game. Audio is omitted so the game has no sound-device dependency.
